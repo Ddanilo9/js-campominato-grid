@@ -28,6 +28,10 @@ justify-content: center;
     display: grid;
     grid-template-columns: repeat(10,1fr);
 }
+.griglia2{
+    display: grid;
+    grid-template-columns: repeat(9,1fr);
+}
 
 .cella{
     display: flex;
