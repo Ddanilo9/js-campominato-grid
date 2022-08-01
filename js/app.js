@@ -1,49 +1,61 @@
 // console.log('hola')
 
-let dimensioneGriglia = 10    //dichiaro il numero delle colonne della griglia
-let numeroCelle = dimensioneGriglia **2   //dichiaro il numero di celle
-let griglia = document.querySelector('.griglia') 
 
 let btnPlay = document.querySelector('.btn-play')  //recupero il bottone per iniziare a giocare 
-let selectedValue = document.getElementById('livelli')
+let griglia = document.querySelector('.griglia')  //recupero griglia
+let selectedValue = document.getElementById('livelli')  //recupero la selezione deo livelli
+griglia.innerHTML= ""
+// console.log(griglia)
 
 
-let livelloDifficolta = selectedValue.value;
-console.log(livelloDifficolta)
+function getLevelMode(input) {   //funzione per la selezione dei livelli
+    let level = parseInt(input.value);
+    if (level === 2) {
+        return 'livello 2';
+    } else if (level === 3) {
+        return 'livello 3';
+    }
+    return 'livello 1';
+}
 
-// if (livelloDifficolta === 2) {
-//     dimensioneGriglia = 9;
-// } else if (livelloDifficolta === 3) {
-//     dimensioneGriglia = 7;
-// }
+btnPlay.addEventListener('click', function(){   //al click del bottone 
+    let livelloDifficolta = getLevelMode(selectedValue);
+    let gridSize = 10; 
+    // console.log(livelloDifficolta)
 
-    btnPlay.addEventListener('click', function(){
-        
-        for (let i = 0; i < numeroCelle; i++) {
-            let cell = getSquareElement()
-            cell.innerHTML = i +1
-            griglia.append(cell);
-        } 
-         
-        
-        function getSquareElement () {
-        const square = document.createElement('div');
-        square.classList.add('cella');
-        square.addEventListener('click', clickCell);
+    if (livelloDifficolta === 'livello 2') {
+        gridSize = 9;
+        // console.log(livelloDifficolta)
+    } else if (livelloDifficolta === 'livello 3') {
+        gridSize = 7;
+        // console.log(livelloDifficolta)
+    }
+    let numeroCelle = gridSize ** 2
 
-        return square
-        
+    for (let i = 0; i < numeroCelle; i++) {
+        let square = createSquareEl();
+        square.innerHTML = i + 1;
+        if (livelloDifficolta === 'livello 2') {
+            griglia.classList.add('grigliaDue');
+            console.log(livelloDifficolta)
+        } else if (livelloDifficolta === 'livello 3') {
+            griglia.classList.add('grigliaTre');
+        } else {
+            griglia.classList.add('griglia');
         }
-
-        function clickCell() {
-            const square = this
-            square.classList.toggle('clicked');
-            console.log(square);
-        }
-
+        griglia.append(square);
+    }
 })
 
+function createSquareEl() {
+    let square = document.createElement('div');
+    square.classList.add('cella');
+    square.addEventListener('click', clickHandler);
+    return square;
+}
 
-
-
-
+function clickHandler() {
+    const square = this;
+    square.classList.add('clicked');
+    console.log(square.innerHTML);
+}

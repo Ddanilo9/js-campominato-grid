@@ -28,6 +28,13 @@ justify-content: center;
     display: grid;
     grid-template-columns: repeat(10,1fr);
 }
+.grigliaDue{
+    grid-template-columns: repeat(9,1fr);
+    
+}
+.grigliaTre{
+    grid-template-columns: repeat(7,1fr);
+}
 
 .cella{
     display: flex;
