@@ -6,6 +6,7 @@ let griglia = document.querySelector('.griglia')  //recupero griglia
 let selectedValue = document.getElementById('livelli')  //recupero la selezione deo livelli
 griglia.innerHTML= ""
 // console.log(griglia)
+let posizioniBombe = []//******************** */
 
 
 function getLevelMode(input) {   //funzione per la selezione dei livelli
@@ -21,7 +22,7 @@ function getLevelMode(input) {   //funzione per la selezione dei livelli
 btnPlay.addEventListener('click', function(){   //al click del bottone 
     let livelloDifficolta = getLevelMode(selectedValue);
     let gridSize = 10; 
-    // console.log(livelloDifficolta)
+    
 
     if (livelloDifficolta === 'livello 2') {
         gridSize = 9;
@@ -31,6 +32,9 @@ btnPlay.addEventListener('click', function(){   //al click del bottone
         // console.log(livelloDifficolta)
     }
     let numeroCelle = gridSize ** 2
+
+    posizioniBombe = generatoreBombe(numeroCelle)//*********************** */
+    console.log(posizioniBombe)
 
     for (let i = 0; i < numeroCelle; i++) {
         let square = createSquareEl();
@@ -56,6 +60,25 @@ function createSquareEl() {
 
 function clickHandler() {
     const square = this;
-    square.classList.add('clicked');
-    console.log(square.innerHTML);
+    let numeroCella = parseInt(square.innerHTML)
+    // console.log(numeroCella)
+    // console.log(posizioniBombe.includes(numeroCella))
 }
+
+function generatoreBombe(max) {  // funzione per generare le bombe
+    let bombe = []
+    while (bombe.length < 16) {
+        let n = getRandomIntInclusive (1, max)
+        if ( !bombe.includes(n)) {
+            bombe.push(n)
+        }
+    }
+    return  bombe
+}
+
+function getRandomIntInclusive(min, max) {
+    min = Math.ceil(min);
+    max = Math.floor(max);
+    return Math.floor(Math.random() * (max - min + 1) + min); //The maximum is inclusive and the minimum is inclusive
+  }
+  
